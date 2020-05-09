@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Signin to askAma · askAma</title>
+    
+    <link href="{{ url_for('static', filename='/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+
+    <!-- favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='/img/favicon.ico') }}">
+
+  </head>
+
+  <body>
+    <div class="container center-contain">
+        <div class="signin-item text-center mb-4">
+            <a class="navbar-brand mb-3" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='/img/icon2.png') }}" alt="askAma" class="bd-placeholder-img"></a>
+            <h1 class="h3 font-weight-normal" style="color: #2f958c;">Sign in to askAma </h1>
+        </div>
+        <form class="form-signin signin-item card mb-4" method="post">
+            <label for="inputUsername" class="sr-only">Username</label>
+            <input class="form-control" type="text" id="inputUsername" placeholder="Username" name="username" value="{{request.form.username }}" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input class="form-control" type="password" id="inputPassword" placeholder="Password" name="password" value="{{request.form.password }}" required>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
+        </form>
+        <div class="card signin-item text-center">
+            <p class="my-auto">Don't have an account yet  <a href="{{ url_for('signup') }}">Sign up</a></p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/js/bootstrap.min.js') }}"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,68 @@
+<!-- extends -->
+{% extends "base.html" %}
+
+<!-- Block Div -->
+{% block div %}
+
+    <!-- Carousel -->
+    <div id="caro" class="container-fluid carousel slide mx-auto" data-ride="carousel" data-interval="4000">
+
+        <!-- carousel items -->
+        <div class="carousel-inner" role="listbox">
+            {% for img in data.carousel %}
+            <div class="carousel-item text-center {% if img.endswith('carousel.png') %} active {% endif %}">
+                <img class="img-fluid" src="{{ img }}" style="max-height: 800px; width: auto;">
+            </div>
+            {% endfor %}
+            
+        </div>
+        
+        <!-- show which image carousel is currently showing -->
+        <ol class="carousel-indicators">
+            {% for numb in range(data.carousel | length) %}
+            <li data-target="#caro" data-slide-to="{{ numb }}" {% if numb == 0 %} class=" active "{% endif %}></li>
+            {% endfor %}
+        </ol>
+    </div>
+    <!-- Posts -->
+    <div class="content my-5">
+        <div class="container">
+            <div class="row padding">
+                <div class="col-md-9 col-xs-12">
+                    {% for post in data.posts %}
+                    <div class="card mb-4">
+                        {% if post.img %}
+                        <img src="{{ post.img }}" alt="card-img" class="card-img-top img-fluid">
+                        {% endif %}
+                        <div class="card-block card-body">
+                            <h4 class="card-title">{{ post.postTitle }}</h4>
+                            <div class="my-2">
+                                <small class="cat">
+                                       <i class="fa fa-user text-info"></i> {{ post.author }} on {{ post.date }}
+                                </small>
+                            </div>
+                            <p class="card-text"> {{ post.summary }} </p>
+                            <a href="{{ url_for('post', year=post.date.split(' ')[2], month=mnt[post.date.split(' ')[0]],  post_title= post.postTitle.lower().replace(' ', '-') ) }}" class="card-link">Read more</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-3 col-xs-0">
+                    <div class="card card-block">
+                        <h5 class="card-title text-center my-2">Recent Posts</h5>
+                        <div class="list-group">
+                            {% for post in data.posts %}
+                                <a class="btn list-group-item text-left" href="/">{{ post.postTitle }}</a>
+                            {% endfor %}
+                        </div>
+                        <div class="m-t-1 text-center my-3">
+                            <a class="btn btn-success" href="/">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SideBar -->
+
+{% endblock %}

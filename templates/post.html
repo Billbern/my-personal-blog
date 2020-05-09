@@ -1,0 +1,33 @@
+<!-- extend index -->
+{% extends "base.html" %}
+
+<!-- block div -->
+{% block div %}
+<div class="post-content content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h3 class="mb-3">{{ info.postTitle }}</h3>
+                <p class="lead">{{ info.summary }}</p>
+                {% if info.img %}
+                <img src="{{ info.img }}" alt="post image" class="img-fluid mb-3">
+                {% endif %}
+                <p class="text-justify">
+                    {{ info.content }}
+                </p>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-block">
+                    <h5 class="card-title text-center my-2">Tags</h5>
+                    <div class="list-group">
+                        {% for tag in info.tags %}
+                        <a class="btn list-group-item text-left" href="/">{{ tag }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
