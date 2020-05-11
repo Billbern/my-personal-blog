@@ -46,6 +46,7 @@ def load_data():
         data = json.load(f)
     return data
 
+
 if __name__ == "__main__":
     host = os.environ.get('IP', '127.0.1.1')
     port = int(os.environ.get('PORT', 8080))
