@@ -30,10 +30,10 @@
                                 {% endif %}
                                 <div class="card-block card-body">
                                     <h4 class="card-title">
-                                        <a href="/">{{ post.postTitle }}</a>
+                                        <a href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}">{{ post.postTitle }}</a>
                                     </h4>
                                     <div class="small-content my-2">
-                                        <p><i class="fa fa-user text-info"></i>  <a href="">{{ post.author }}</a> on {{ post.date }}</p>
+                                        <p><i class="fa fa-user text-info"></i>  <a href="{{url_for('author', username=post.author | convert_string)}}">{{ post.author }}</a> on {{ post.date }}</p>
                                     </div>
                                     {% if post.summary %}
                                     <p class="card-text">{{ post.summary }} </p>
