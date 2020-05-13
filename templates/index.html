@@ -4,43 +4,38 @@
 <!-- Block Div -->
 {% block div %}
 
-    <!-- Carousel -->
-    <div id="caro" class="container-fluid carousel slide mx-auto" data-ride="carousel" data-interval="4000">
-
-        <!-- carousel items -->
-        <div class="carousel-inner" role="listbox">
-            {% for img in data.carousel %}
-            <div class="carousel-item text-center {% if img.endswith('carousel.png') %} active {% endif %}">
-                <img class="img-fluid" src="{{ img }}" style="max-height: 800px; width: auto;">
+    <!-- Header -->
+    <div id="headimage" class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <h2>Welcome</h2>
+                    Get lifestyle, educational, entertainment, financial posts from here
+                </div>
             </div>
-            {% endfor %}
-            
         </div>
-        
-        <!-- show which image carousel is currently showing -->
-        <ol class="carousel-indicators">
-            {% for numb in range(data.carousel | length) %}
-            <li data-target="#caro" data-slide-to="{{ numb }}" {% if numb == 0 %} class=" active "{% endif %}></li>
-            {% endfor %}
-        </ol>
     </div>
     <!-- Posts -->
     <div class="content my-5">
         <div class="container">
-            <div class="row padding">
-                <div class="col-md-8 col-xs-12">
+            <div class="row">
+                <div class="col-md-9 col-sm-12 col-xs-12">
                     <div class="row">
-                        {% for post in data.posts %}
-                        <div class="col-md-6">
+                        <div class="card-columns px-2">
+                        {% for post in data %}
                             <div class="card mb-4">
                                 {% if post.img %}
                                 <img src="{{ post.img }}" alt="card-img" class="card-img-top img-fluid">
                                 {% endif %}
                                 <div class="card-block card-body">
-                                    <h4 class="card-title">{{ post.postTitle }}</h4>
+                                    <h4 class="card-title">
+                                        <a href="/">{{ post.postTitle }}</a>
+                                    </h4>
                                     <div class="my-2">
                                         <small class="cat">
-                                            <i class="fa fa-user text-info"></i> {{ post.author }} on {{ post.date }}
+                                            <p>
+                                                <i class="fa fa-user text-info"></i>  <a href="">{{ post.author }}</a> on {{ post.date }}
+                                            </p>
                                         </small>
                                     </div>
                                     {% if post.summary %}
@@ -48,37 +43,52 @@
                                     {% else %}
                                     <p class="card-text">{{ post.content | truncate(100) }} </p>
                                     {% endif %}
-                                    <a href="{{ url_for('post', year=post.date.split(' ')[2], month=mnt[post.date.split(' ')[0]],  post_title= post.postTitle.lower().replace(' ', '-') ) }}" class="card-link">Read more</a>
+                                    <a href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}" class="card-link btn btn-info">Read more</a>
                                 </div>
                             </div>
-                        </div>
                         {% endfor %}
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-0">
-                    <div class="card-block mb-4">
-                        <h5 class="card-title text-left ml-2 mb-3">Recent Posts</h5>
+
+                <!-- SideBar -->
+                <div class="col-md-3 col-xs-0">
+                    <div class="sidebox card-block ">
+                        <h5 class="card-header text-left mb-3">Recent Posts</h5>
                         <div class="list-group">
-                            {% for post in data.posts %}
-                                <a class="btn text-left" href="/"> <img src="{{ post.img }}" alt="post image" class="rounded-circle img-small"> {{ post.postTitle | truncate(30) }}</a>
+                            {% for post in posts[:5] %}
+                            {% if not loop.first %}
+                            <hr class="light">
+                            {% else %}
+                            {% endif %}
+                            <div class="media">
+                                <img src="{{ post.img }}" alt="post image" class="img-small align-self-center mr-3"> 
+                                <div class="media-body">
+                                    <p class="my-0">{{ post.date }}</p>
+                                    <p class="my-0"><a href="/">{{ post.postTitle | truncate(40) }}</a></p>
+                                </div>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
     
-                    <div class="card-block">
-                        <h5 class="card-title text-left ml-2 mb-3">Categories</h5>
-                        <div class="list-group">
-                            {% for post in data.posts %}
+                    <div class="sidebox card-block ">
+                        <h5 class="card-header text-left mb-3">Tags</h5>
+                            <ul class="nav nav-pills">
+                                {% for post in posts %}
                                 {% for items in post.tags%}
-                                    <a class="btn  text-left" href="/">{{ items }}</a>
+                                    <li class="nav-item">
+                                        <a class="btn btn-info m-2" href="/">{{ items }}</a>
+                                    </li>
                                 {% endfor %}
-                            {% endfor %}
-                        </div>
+                                {% endfor %}
+                            </ul>
                     </div>
+                </div>
+                <div class="mx-auto">
+                    {{ pagination.links }}
                 </div>
             </div>
         </div>
     </div>
-    <!-- SideBar -->
-
 {% endblock %}

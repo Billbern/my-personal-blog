@@ -17,13 +17,15 @@
                 </p>
             </div>
             <div class="col-md-3">
-                <div class="card card-block">
-                    <h5 class="card-title text-center my-2">Tags</h5>
-                    <div class="list-group">
+                <div class="card-block">
+                    <h5 class="card-header text-center my-2">Tags</h5>
+                    <ul class="nav nav-pills">
                         {% for tag in info.tags %}
-                        <a class="btn list-group-item text-left" href="/">{{ tag }}</a>
+                        <li class="nav-item">
+                            <a class="btn btn-info m-2" href="/">{{ tag }}</a>
+                        </li>
                         {% endfor %}
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>

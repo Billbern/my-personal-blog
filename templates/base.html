@@ -15,7 +15,7 @@
 <!-- NavBar -->
 <header>
     <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
-        <div class="container">
+        <div class="container-fluid padding">
             <a class="navbar-brand" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='/img/icon2.png') }}" alt="askAma"></a>
             
             <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="false">
@@ -28,7 +28,7 @@
                         <input class="form-control" type="text" placeholder="Search">
                     
                         <div class="input-group-append">
-                            <button class="btn btn-primary">
+                            <button class="btn btn-info">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
