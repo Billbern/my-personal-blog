@@ -6,11 +6,12 @@
 
     <!-- Header -->
     <div id="headimage" class="container-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 mx-auto">
-                    <h2>Welcome</h2>
-                    Get lifestyle, educational, entertainment, financial posts from here
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="welcome-caption col-md-8 m-auto text-center">
+                    <h1>Welcome to askAma</h1>
+                    <hr class="light">
+                    <h3>Get lifestyle, technology, entertainment and  financial news here</h3>
                 </div>
             </div>
         </div>
@@ -31,12 +32,8 @@
                                     <h4 class="card-title">
                                         <a href="/">{{ post.postTitle }}</a>
                                     </h4>
-                                    <div class="my-2">
-                                        <small class="cat">
-                                            <p>
-                                                <i class="fa fa-user text-info"></i>  <a href="">{{ post.author }}</a> on {{ post.date }}
-                                            </p>
-                                        </small>
+                                    <div class="small-content my-2">
+                                        <p><i class="fa fa-user text-info"></i>  <a href="">{{ post.author }}</a> on {{ post.date }}</p>
                                     </div>
                                     {% if post.summary %}
                                     <p class="card-text">{{ post.summary }} </p>

@@ -9,9 +9,17 @@ body {
     margin-bottom: 50px;
 }
 
-.padding{
-    padding-left: 12%;
-    padding-right: 12%;
+.btn-login {
+    color: #2f958c;
+}
+
+.btn-login, .btn-signup {
+    font-weight: 800;
+    font-size: 1.1em;
+}
+
+.btn-login:hover {
+    color: #25776f;
 }
 
 #headimage {
@@ -20,7 +28,32 @@ body {
     background-size: cover;
     height: 70vh;
     width: 100vw;
+}
+
+.welcome-caption h1{
+    font-weight: 600;
+    font-size: 50px;
+}
+
+.welcome-caption h3{
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.welcome-caption h1, .welcome-caption h3 {
     color: white;
+    text-shadow: 1px 1px 15px #000;
+}
+
+.welcome-caption hr {
+    box-shadow: 1px 0px 1px #000;
+}
+
+hr.light {
+    border-top: 1px solid #d5d5d5;
+    width: 60%;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
 }
 
 .img-small {
@@ -28,6 +61,19 @@ body {
     height: 50px;
     overflow: hidden;
     border-radius: 200px;
+}
+
+.card {
+    display: block;
+    font-size: 16px;
+    color: #586069;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    line-height: 1.45em;
+    background-color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),
+                0 2px 10px 0 rgba(0,0,0,0.12);
+    transition: box-shadow .25s; 
 }
 
 .card > img{
@@ -39,28 +85,26 @@ body {
     border-bottom-right-radius: 0px;
 }
 
-hr.light {
-    border-top: 1px solid #d5d5d5;
-    width: 90%;
-    margin-top: .5rem;
-    margin-bottom: .5rem;
+.card-title > a {
+    font-size: 1em!important;
+    color: #24292e;
 }
 
-h3, h4, .btn-login {
-    color: #2f958c;
+.card .small-content {
+    font-size: 0.8em;
 }
 
-.btn-login, .btn-signup {
-    font-weight: 500;
-    font-size: large;
+.card:hover {
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),
+                0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .post-content, .form-signin {
     margin-top: 98px;
 }
 
-.btn-login:hover {
-    color: #25776f;
+.nav-item > .btn-info {
+    font-size: 0.9em;
 }
 
 .center-contain {
@@ -81,44 +125,21 @@ h3, h4, .btn-login {
     margin: auto;
 }
 
-.card {
-    display: block;
-    margin-bottom: 20px;
-    line-height: 1.42857143;
-    background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-    transition: box-shadow .25s; 
-}
-
-.card:hover {
-    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-}
-
-.card-title > a {
-    font-size: 1em!important;
-    color: #24292e;
-}
-
 .sidebox {
     margin-bottom: 70px;
 }
 
-.media-body > p > a:hover , .card-title > a:hover{
-    color: #2f958c;
-}
-
-.card > p {
-    color: #586069;
-}
-
-.media-body > p{
+.media-body {
     font-size: 14px!important;
     color: #6a737d;
 }
 
-.media-body > p > a {
+.media-body p > a {
     color: #24292e;
+}
+
+.media-body p > a:hover , .card-title > a:hover{
+    color: #2f958c;
 }
 
 .form-signin .checkbox {
