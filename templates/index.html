@@ -33,14 +33,29 @@
                                         <a href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}">{{ post.postTitle }}</a>
                                     </h4>
                                     <div class="small-content my-2">
-                                        <p><i class="fa fa-user text-info"></i>  <a href="{{url_for('author', username=post.author | convert_string)}}">{{ post.author }}</a> on {{ post.date }}</p>
+                                        <p> 
+                                            by <i class="fa fa-user text-info"></i>  
+                                            <a class="btn-danger p-1" href="{{url_for('author', username=post.author | convert_string)}}">{{ post.author }}</a>
+                                            {% if post.tags %}
+                                            under
+                                            <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0].lower() ) }}">{{ post.tags[0].lower() }}</a>
+                                            {% endif %}
+                                            on {{ post.date }}
+                                        </p>
                                     </div>
                                     {% if post.summary %}
                                     <p class="card-text">{{ post.summary }} </p>
                                     {% else %}
                                     <p class="card-text">{{ post.content | truncate(100) }} </p>
                                     {% endif %}
-                                    <a href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}" class="card-link btn btn-info">Read more</a>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a class="a-bold" href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}" class="card-link btn btn-link">Read more</a>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <i class="fa fa-comment"></i> 0
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
@@ -62,7 +77,7 @@
                                 <img src="{{ post.img }}" alt="post image" class="img-small align-self-center mr-3"> 
                                 <div class="media-body">
                                     <p class="my-0">{{ post.date }}</p>
-                                    <p class="my-0"><a href="/">{{ post.postTitle | truncate(40) }}</a></p>
+                                    <p class="my-0"><a href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}">{{ post.postTitle | truncate(40) }}</a></p>
                                 </div>
                             </div>
                             {% endfor %}
@@ -75,14 +90,14 @@
                                 {% for post in posts %}
                                 {% for item in post.tags%}
                                     <li class="nav-item">
-                                        <a class="btn btn-info m-2" href="{{ url_for('category', tag= item | convert_string ) }}">{{ item }}</a>
+                                        <a class="btn btn-info p-1 m-2" href="{{ url_for('category', tag= item.lower() ) }}">{{ item.lower() }}</a>
                                     </li>
                                 {% endfor %}
                                 {% endfor %}
                             </ul>
                     </div>
                 </div>
-                <div class="mx-auto">
+                <div class="page-nav mx-auto">
                     {{ pagination.links }}
                 </div>
             </div>

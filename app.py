@@ -46,7 +46,7 @@ def index():
                                                                     posts=data)
 
 # route for individual posts
-@blog.route('/posts/<int:year>/<int:month>/<post_title>', methods=['GET', 'POST'])
+@blog.route('/posts/<int:year>/<int:month>/<string:post_title>', methods=['GET', 'POST'])
 def post(year, month, post_title):
     
     # call load_data for only posts
