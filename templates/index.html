@@ -73,9 +73,9 @@
                         <h5 class="card-header text-left mb-3">Tags</h5>
                             <ul class="nav nav-pills">
                                 {% for post in posts %}
-                                {% for items in post.tags%}
+                                {% for item in post.tags%}
                                     <li class="nav-item">
-                                        <a class="btn btn-info m-2" href="/">{{ items }}</a>
+                                        <a class="btn btn-info m-2" href="{{ url_for('category', tag= item | convert_string ) }}">{{ item }}</a>
                                     </li>
                                 {% endfor %}
                                 {% endfor %}

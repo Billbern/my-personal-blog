@@ -59,7 +59,7 @@ def post(year, month, post_title):
 
 
 @blog.route('/category/<tag>')
-def categories(tag):
+def category(tag):
     return render_template('tag.html')
 
 @blog.route('/author/<username>')
