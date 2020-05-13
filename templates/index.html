@@ -53,7 +53,7 @@
                                             <a class="a-bold" href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}" class="card-link btn btn-link">Read more</a>
                                         </div>
                                         <div class="col-6 text-right">
-                                            <i class="fa fa-comment"></i> 0
+                                            <i class="fa fa-comment"></i> {{ post.comments | length }}
                                         </div>
                                     </div>
                                 </div>
