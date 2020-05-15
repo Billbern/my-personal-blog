@@ -60,11 +60,21 @@ def post(year, month, post_title):
 
 @blog.route('/category/<tag>')
 def category(tag):
-    return render_template('tag.html')
+    data = load_data()['posts']
+    newdata = []
+    for post in data:
+        if tag in post['tags']:
+            newdata.append(post)
+    return render_template('tag.html', caption=f'Posts under {tag}', data=newdata, posts=data)
 
 @blog.route('/author/<username>')
 def author(username):
-    return render_template('author.html')
+    data =load_data()['posts']
+    newdata = []
+    for post in data:
+        if username == post['author']:
+            newdata.append(post)
+    return render_template('author.html', caption=f'Posts by {username}', data=newdata, posts=data)
 
 # login route
 @blog.route('/login', methods=['GET', 'POST'])

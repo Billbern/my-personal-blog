@@ -1,9 +1,10 @@
 <!-- extend index -->
 {% extends "base.html" %}
+{% include "navbar.html" %}
 
 <!-- block div -->
 {% block div %}
-<div class="main-content h-100">
+<div class="content my-4">
     <div class="container">
         <div class="row">
             <div class="col-md-9 col-xs-12 m-auto">
@@ -19,7 +20,7 @@
                             <a class="btn-danger p-1" href="{{url_for('author', username=info.author | convert_string)}}">{{ info.author }}</a>
                             {% if info.tags %}
                             under
-                            <a class="btn-info p-1" href="{{ url_for('category', tag= info.tags[0].lower() ) }}">{{ info.tags[0].lower() }}</a>
+                            <a class="btn-info p-1" href="{{ url_for('category', tag= info.tags[0] ) }}">{{ info.tags[0] }}</a>
                             {% endif %}
                             on {{ info.date }}
                         </p>

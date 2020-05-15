@@ -1,0 +1,42 @@
+<div class="col-md-8 col-sm-12 col-xs-12">
+    <div class="row">
+        <div class="card-columns">
+        {% for post in data %}
+            <div class="card mb-4">
+                {% if post.img %}
+                <img src="{{ post.img }}" alt="card-img" class="card-img-top img-fluid">
+                {% endif %}
+                <div class="card-block card-body">
+                    <h4 class="card-title">
+                        <a href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime, post_title=post.postTitle | convert_string) }}">{{ post.postTitle }}</a>
+                    </h4>
+                    <div class="small-content my-2">
+                        <p> 
+                            by <i class="fa fa-user text-info"></i>  
+                            <a class="btn-danger p-1" href="{{url_for('author', username=post.author)}}">{{ post.author }}</a>
+                            {% if post.tags %}
+                            under
+                            <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0] ) }}">{{ post.tags[0] }}</a>
+                            {% endif %}
+                            on {{ post.date }}
+                        </p>
+                    </div>
+                    {% if post.summary %}
+                    <p class="card-text">{{ post.summary }} </p>
+                    {% else %}
+                    <p class="card-text">{{ post.content | truncate(100) }} </p>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-6">
+                            <a class="a-bold" href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}" class="card-link btn btn-link">Read more</a>
+                        </div>
+                        <div class="col-6 text-right">
+                            <i class="fa fa-comment"></i> {{ post.comments | length }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>

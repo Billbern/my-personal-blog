@@ -1,106 +1,19 @@
 <!-- extends -->
 {% extends "base.html" %}
-
+{% include "navbar.html" %}
 <!-- Block Div -->
 {% block div %}
-
-    <!-- Header -->
-    <div id="headimage" class="container-fluid">
-        <div class="container h-100">
-            <div class="row h-100">
-                <div class="welcome-caption col-md-8 m-auto text-center">
-                    <h1>Welcome to askAma</h1>
-                    <hr class="light">
-                    <h3>Get lifestyle, technology, entertainment and  financial news here</h3>
-                </div>
+{% include "header.html" %}
+<!-- Posts -->
+<div class="content">
+    <div class="container">
+        <div class="row">
+            {% include "postcards.html"%}
+            {% include "sidebar.html" %}
+            <div class="page-nav mx-auto mt-5">
+                {{ pagination.links }}
             </div>
         </div>
     </div>
-    <!-- Posts -->
-    <div class="content my-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="card-columns px-2">
-                        {% for post in data %}
-                            <div class="card mb-4">
-                                {% if post.img %}
-                                <img src="{{ post.img }}" alt="card-img" class="card-img-top img-fluid">
-                                {% endif %}
-                                <div class="card-block card-body">
-                                    <h4 class="card-title">
-                                        <a href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}">{{ post.postTitle }}</a>
-                                    </h4>
-                                    <div class="small-content my-2">
-                                        <p> 
-                                            by <i class="fa fa-user text-info"></i>  
-                                            <a class="btn-danger p-1" href="{{url_for('author', username=post.author | convert_string)}}">{{ post.author }}</a>
-                                            {% if post.tags %}
-                                            under
-                                            <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0].lower() ) }}">{{ post.tags[0].lower() }}</a>
-                                            {% endif %}
-                                            on {{ post.date }}
-                                        </p>
-                                    </div>
-                                    {% if post.summary %}
-                                    <p class="card-text">{{ post.summary }} </p>
-                                    {% else %}
-                                    <p class="card-text">{{ post.content | truncate(100) }} </p>
-                                    {% endif %}
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <a class="a-bold" href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}" class="card-link btn btn-link">Read more</a>
-                                        </div>
-                                        <div class="col-6 text-right">
-                                            <i class="fa fa-comment"></i> {{ post.comments | length }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SideBar -->
-                <div class="col-md-3 col-xs-0">
-                    <div class="sidebox card-block ">
-                        <h5 class="card-header text-left mb-3">Recent Posts</h5>
-                        <div class="list-group">
-                            {% for post in posts[:5] %}
-                            {% if not loop.first %}
-                            <hr class="light">
-                            {% else %}
-                            {% endif %}
-                            <div class="media">
-                                <img src="{{ post.img }}" alt="post image" class="img-small align-self-center mr-3"> 
-                                <div class="media-body">
-                                    <p class="my-0">{{ post.date }}</p>
-                                    <p class="my-0"><a href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}">{{ post.postTitle | truncate(40) }}</a></p>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-    
-                    <div class="sidebox card-block ">
-                        <h5 class="card-header text-left mb-3">Tags</h5>
-                            <ul class="nav nav-pills">
-                                {% for post in posts %}
-                                {% for item in post.tags%}
-                                    <li class="nav-item">
-                                        <a class="btn btn-info p-1 m-2" href="{{ url_for('category', tag= item.lower() ) }}">{{ item.lower() }}</a>
-                                    </li>
-                                {% endfor %}
-                                {% endfor %}
-                            </ul>
-                    </div>
-                </div>
-                <div class="page-nav mx-auto">
-                    {{ pagination.links }}
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 {% endblock %}

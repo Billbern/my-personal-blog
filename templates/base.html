@@ -10,48 +10,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
 
     <title>{{ title }}</title>
+    
 </head>
 <body>
-<!-- NavBar -->
-<header>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='/img/icon2.png') }}" alt="askAma"></a>
-            
-            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="navbar-collapse collapse" id="navb">
-                <form class="form-inline ml-auto my-2 my-lg-0 mx-2">
-                    <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Search">
-                    
-                        <div class="input-group-append">
-                            <span class="btn btn-info">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-                <div class="col-xs-12">
-                    <a class="btn btn-login btn-lg m-2 mr-2" href="{{ url_for('signin') }}">Sign in</a>
-                    <a class="btn btn-signup btn-outline-success btn-lg my-2" href="{{ url_for('signup') }}">Sign up</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
 
 <!-- Block Div -->
-<main>
+<main role="main">
     {% block div %}
     {% endblock %}
 </main>
+
 <!-- Footer -->
-<footer class="footer bg-dark">
-    <div class="container-fluid">
-        <p class="text-center my-auto">&copy; askAmablog.com</p>
+<footer class="footer bg-dark fixed mt-auto py-3">
+    <div class="container text-center">
+        <span class="text-muted">&copy; askAmablog.com</span>
     </div>
 </footer>
 <script src="{{ url_for('static', filename='/js/jquery-3.3.1.min.js') }}"></script>

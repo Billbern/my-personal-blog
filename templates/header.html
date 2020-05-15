@@ -1,0 +1,14 @@
+<!-- Header -->
+<div id="headimage" class="container-fluid">
+    <div class="container h-100">
+        <div class="row h-100">
+            <div class="welcome-caption col-md-8 m-auto text-center">
+                <h1>{{ caption | default('Welcome to askAma') }}</h1>
+                <hr class="light">
+                {% if request.endpoint == 'index' %}
+                <h3>Get lifestyle, technology, entertainment and  financial news here</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

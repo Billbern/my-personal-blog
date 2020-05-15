@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% include "navbar.html" %}
+{% block div %}
+{% include "header.html" %}
+<!-- Posts -->
+<div class="content">
+    <div class="container">
+        <div class="row">
+            {% include "postcards.html" %}
+
+            {% include "sidebar.html" %}
+            
+            <div class="page-nav mx-auto">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
