@@ -21,11 +21,13 @@
 </main>
 
 <!-- Footer -->
-<footer class="footer bg-dark fixed mt-auto py-3">
+{% if request.endpoint != "signin" %}
+<footer class="footer bg-dark py-4">
     <div class="container text-center">
         <span class="text-muted">&copy; askAmablog.com</span>
     </div>
 </footer>
+{% endif %}
 <script src="{{ url_for('static', filename='/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='/js/popper.min.js') }}"></script>
 <script src="{{ url_for('static', filename='/js/bootstrap.min.js') }}"></script>

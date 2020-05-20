@@ -1,11 +1,21 @@
 <!-- SideBar -->
 <div class="col-md-4 col-xs-0">
     {% if request.endpoint == "author" %}
-    <div class="sidebox card-block px-2">
-
+    {% for post in data %}
+    <div class="sidebox text-center px-3">
+        <div class="card bg-light">
+            <div class="card-body">
+                <img src="{{ post.author.pic }}" alt="post image" class="img-author"> 
+                <div class="card-body">
+                    <h4 class="card-title my-0">{{ post.author.username }}</h4>
+                    <p></p>
+                </div>
+            </div>
+        </div>
     </div>
+    {% endfor %}
     {% endif %}
-    <div class="sidebox card-block px-2">
+    <div class="sidebox card-block px-3">
         <h5 class="card-header text-left mb-3">Recent Posts</h5>
         <div class="list-group">
             {% for post in posts[:5] %}
@@ -14,25 +24,23 @@
             {% else %}
             {% endif %}
             <div class="media">
-                <img src="{{ post.img }}" alt="post image" class="img-small align-self-center mr-3"> 
+                <!-- <img src="{{ post.img }}" alt="post image" class="img-small align-self-center mr-3">  -->
                 <div class="media-body">
-                    <p class="my-0">{{ post.date }}</p>
-                    <p class="my-0"><a href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}">{{ post.postTitle | truncate(40) }}</a></p>
+                    <p class="my-0">{{ post.posted_on }}</p>
+                    <p class="my-0"><a href="#">{{ post.title | truncate(40) }}</a></p>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
     
-    <div class="sidebox card-block px-2">
+    <div class="sidebox card-block px-3">
         <h5 class="card-header text-left mb-3">Tags</h5>
-            <ul class="nav nav-pills">
-                {% for post in posts %}
-                {% for item in post.tags %}
+            <ul class="nav nav-pills px-4">
+                {% for post in sidedata %}
                     <li class="nav-item">
-                        <a class="btn btn-info p-1 m-2" href="{{ url_for('category', tag= item ) }}">{{ item }}</a>
+                        <a class="btn btn-info p-1 m-2" href="{{ url_for('category', tag=post.name ) }}">{{ post.name }}</a>
                     </li>
-                {% endfor %}
                 {% endfor %}
             </ul>
     </div>    

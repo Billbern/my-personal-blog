@@ -8,17 +8,17 @@
                 {% endif %}
                 <div class="card-block card-body">
                     <h4 class="card-title">
-                        <a href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime, post_title=post.postTitle | convert_string) }}">{{ post.postTitle }}</a>
+                        <a href="#">{{ post.title }}</a>
                     </h4>
                     <div class="small-content my-2">
                         <p> 
                             by <i class="fa fa-user text-info"></i>  
-                            <a class="btn-danger p-1" href="{{url_for('author', username=post.author)}}">{{ post.author }}</a>
+                            <a class="btn-danger p-1" href="{{url_for('author', username=post.author.username)}}">{{ post.author.username }}</a>
                             {% if post.tags %}
                             under
-                            <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0] ) }}">{{ post.tags[0] }}</a>
+                            <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0].name ) }}">{{ post.tags[0].name }}</a>
                             {% endif %}
-                            on {{ post.date }}
+                            on {{ post.posted_on }}
                         </p>
                     </div>
                     {% if post.summary %}
@@ -28,11 +28,12 @@
                     {% endif %}
                     <div class="row">
                         <div class="col-6">
-                            <a class="a-bold" href="{{ url_for('post', year=post.date.split(' ')[2], month=post.date.split(' ')[0] | format_datetime,  post_title= post.postTitle | convert_string ) }}" class="card-link btn btn-link">Read more</a>
+                            <a class="a-bold" href="#" class="card-link btn btn-link">continue reading...</a>
+                            
                         </div>
-                        <div class="col-6 text-right">
-                            <i class="fa fa-comment"></i> {{ post.comments | length }}
-                        </div>
+                        <!-- <div class="col-6 text-right">
+                            <i class="fa fa-comment"></i> {{ post.comment }}
+                        </div> -->
                     </div>
                 </div>
             </div>

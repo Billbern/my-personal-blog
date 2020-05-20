@@ -1,21 +1,8 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Signin to askAma · askAma</title>
-    
-    <link href="{{ url_for('static', filename='/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+{% extends "base.html" %}
 
-    <!-- favicon -->
-    <link rel="icon" href="{{ url_for('static', filename='/img/favicon.ico') }}">
-
-  </head>
-
-  <body>
-    <div class="container center-contain">
+{% block div %}
+<div class="content">
+    <div class="container">
         <div class="signin-item text-center mb-4">
             <a class="navbar-brand mb-3" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='/img/icon2.png') }}" alt="askAma" class="bd-placeholder-img"></a>
             <h1 class="h3 font-weight-normal" style="color: #2f958c;">Sign in to askAma </h1>
@@ -36,10 +23,5 @@
             <p class="my-auto">Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></p>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='/js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='/js/popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='/js/bootstrap.min.js') }}"></script>
-</body>
-</html>
-
-
+</div>
+{% endblock %}
