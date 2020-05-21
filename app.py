@@ -1,6 +1,5 @@
 import os
 from time import strptime
-from sqlalchemy import func
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, request
 
