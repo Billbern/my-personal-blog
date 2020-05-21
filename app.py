@@ -24,6 +24,8 @@ def convert_string(string):
 def format_datetime(dto):
     return strptime(dto, '%B').tm_mon
 
+
+#sidebar data loader
 def sidebar_data():
     recent = Post.query.order_by(Post.posted_on.desc()).limit(5).all()
     tags = Tag.query.all()
@@ -51,18 +53,16 @@ def post(year, month, post_title):
 @blog.route('/category/<tag>')
 def category(tag):
     data = Tag.query.filter_by(name=tag).all()[0].posts
-    sidedata = Tag.query.all()
-    posts = Post.query.all()
-    return render_template('tag.html', title=f'Tag - {tag}', data=data, posts=posts, sidedata=sidedata)
+    recent , tags = sidebar_data()
+    return render_template('tag.html', title=f'Tag - {tag}', data=data, posts=recent, sidedata=tags)
 
 
 # route for authors
 @blog.route('/author/<username>')
 def author(username):
     data = User.query.filter_by(username=username).all()[0].post
-    sidedata = Tag.query.all()
-    posts = Post.query.all()
-    return render_template('author.html', title=f'Author - {username}', data=data, sidedata=sidedata, posts=posts)
+    recent , tags = sidebar_data()
+    return render_template('author.html', title=f'Author - {username}', data=data, sidedata=tags, posts=recent)
 
 
 # login route
