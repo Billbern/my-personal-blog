@@ -1,0 +1,8 @@
+.vscode
+__pycache__
+copy.json
+data.json
+database.db
+test.py
+/static/img/icon.png
+/static/img/icon1.png
