@@ -11,7 +11,17 @@
             {% include "postcards.html"%}
             {% include "sidebar.html" %}
             <div class="page-nav mx-auto mt-5">
-                
+                {% for page_num in data.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
+                    {% if page_num %}
+                        {% if data.page == page_num %}
+                            <a href="{{ url_for('index', page=page_num ) }}" class="btn btn-info mb-4">{{ page_num }}</a>
+                        {% else %}
+                            <a href="{{ url_for('index', page=page_num ) }}" class="btn btn-outline-info mb-4">{{ page_num }}</a>
+                        {% endif %}
+                    {% else %}
+                        ...
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>

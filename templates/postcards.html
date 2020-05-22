@@ -1,43 +1,81 @@
 <div class="col-md-8 col-sm-12 col-xs-12">
     <div class="row">
         <div class="card-columns">
-        {% for post in data %}
-            <div class="card mb-4">
-                {% if post.img %}
-                <img src="{{ post.img }}" alt="card-img" class="card-img-top img-fluid">
-                {% endif %}
-                <div class="card-block card-body">
-                    <h4 class="card-title">
-                        <a href="#">{{ post.title }}</a>
-                    </h4>
-                    <div class="small-content my-2">
-                        <p> 
-                            by <i class="fa fa-user text-info"></i>  
-                            <a class="btn-danger p-1" href="{{url_for('author', username=post.author.username)}}">{{ post.author.username }}</a>
-                            {% if post.tags %}
-                            under
-                            <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0].name ) }}">{{ post.tags[0].name }}</a>
-                            {% endif %}
-                            on {{ post.posted_on }}
-                        </p>
-                    </div>
-                    {% if post.summary %}
-                    <p class="card-text">{{ post.summary }} </p>
-                    {% else %}
-                    <p class="card-text">{{ post.content | truncate(100) }} </p>
+        {% if request.endpoint == 'index' %}
+            {% for post in data.items %}
+                <div class="card mb-4">
+                    {% if post.img %}
+                    <img src="{{ post.img }}" alt="card-img" class="card-img-top img-fluid">
                     {% endif %}
-                    <div class="row">
-                        <div class="col-6">
-                            <a class="a-bold" href="#" class="card-link btn btn-link">continue reading...</a>
-                            
+                    <div class="card-block card-body">
+                        <h4 class="card-title">
+                            <a href="{{url_for('post', year=post.posted_on.year, month=post.posted_on.month, slug=post.slug)}}">{{ post.title }}</a>
+                        </h4>
+                        <div class="small-content my-2">
+                            <p> 
+                                by <i class="fa fa-user text-info"></i>  
+                                <a class="btn-danger p-1" href="{{url_for('author', username=post.author.username)}}">{{ post.author.username }}</a>
+                                {% if post.tags %}
+                                under
+                                <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0].name ) }}">{{ post.tags[0].name }}</a>
+                                {% endif %}
+                                on {{ post.posted_on | format_datetime }}
+                            </p>
                         </div>
-                        <!-- <div class="col-6 text-right">
-                            <i class="fa fa-comment"></i> {{ post.comment }}
-                        </div> -->
+                        {% if post.summary %}
+                        <p class="card-text">{{ post.summary }} </p>
+                        {% else %}
+                        <p class="card-text">{{ post.content | truncate(100) }} </p>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-6">
+                                <a class="a-bold" href="{{url_for('post', year=post.posted_on.year, month=post.posted_on.month, slug=post.slug)}}" class="card-link btn btn-link">continue reading...</a>
+                            </div>
+                            <!-- <div class="col-6 text-right">
+                                <i class="fa fa-comment"></i> {{ post.comment }}
+                            </div> -->
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            {% for post in data %}
+                <div class="card mb-4">
+                    {% if post.img %}
+                    <img src="{{ post.img }}" alt="card-img" class="card-img-top img-fluid">
+                    {% endif %}
+                    <div class="card-block card-body">
+                        <h4 class="card-title">
+                            <a href="{{url_for('post', year=post.posted_on.year, month=post.posted_on.month, slug=post.slug)}}">{{ post.title }}</a>
+                        </h4>
+                        <div class="small-content my-2">
+                            <p> 
+                                by <i class="fa fa-user text-info"></i>  
+                                <a class="btn-danger p-1" href="{{url_for('author', username=post.author.username)}}">{{ post.author.username }}</a>
+                                {% if post.tags %}
+                                under
+                                <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0].name ) }}">{{ post.tags[0].name }}</a>
+                                {% endif %}
+                                on {{ post.posted_on | format_datetime }}
+                            </p>
+                        </div>
+                        {% if post.summary %}
+                        <p class="card-text">{{ post.summary }} </p>
+                        {% else %}
+                        <p class="card-text">{{ post.content | truncate(100) }} </p>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-6">
+                                <a class="a-bold" href="{{url_for('post', year=post.posted_on.year, month=post.posted_on.month, slug=post.slug)}}" class="card-link btn btn-link">continue reading...</a>
+                            </div>
+                            <!-- <div class="col-6 text-right">
+                                <i class="fa fa-comment"></i> {{ post.comment }}
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
         </div>
     </div>
 </div>
