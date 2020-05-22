@@ -6,33 +6,78 @@
   <div class="container h-100">
     <div class="row">
       <div class="col-md-8 col-xs-12 mx-auto">
-        <form class=" form signup-item mx-auto">
-          <div class="text-center mb-4">
-            <h3 class="h3 mb-3 font-weight-normal">Create An Account</h3>
-          </div>
+        <form class=" form signup-item mx-auto" method="POST" action="">
+          {{ form.hidden_tag() }}
+          <fieldset class="form-group">
+            <legend class="h3 font-weight-normal text-center mb-4">Create An Account</legend>
+          
+            <div class="form-label-group mb-4">
+              {{ form.username.label(class="form-control-label") }}
+              
+              {% if form.username.errors %}
+                    {{ form.username(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for e in form.username.errors %}
+                            <span>{{ e }}</span>
+                        {% endfor %}
+                    </div>
+              {% else %}
+                {{ form.username(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
         
-          <div class="form-label-group mb-4">
-            <label for="inputUsername">Username</label>
-            <input type="email" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-          </div>
-      
-          <div class="form-label-group mb-4">
-            <label for="inputEmail">Email</label>
-            <input type="password" id="inputEmail" class="form-control" placeholder="Email" required>
-          </div>
+            <div class="form-label-group mb-4">
+              {{ form.email.label(class="form-control-label") }}
+              
+              {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for e in form.email.errors %}
+                            <span>{{ e }}</span>
+                        {% endfor %}
+                    </div>
+              {% else %}
+                {{ form.email(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+          
+            <div class="form-label-group mb-4">
+              {{ form.password.label(class="form-control-label") }}
+              
+              {% if form.password.errors %}
+                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for e in form.password.errors %}
+                      <span>{{ e }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.password(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
         
-          <div class="form-label-group mb-4">
-            <label for="inputPassword">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <div class="form-label-group mb-4">
+              {{ form.confirm_password.label(class="form-control-label") }}
+              
+              {% if form.confirm_password.errors %}
+                {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for e in form.confirm_password.errors %}
+                      <span>{{ e }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.confirm_password(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+          </fieldset>
+          <div class="form-group">
+            {{ form.submit(class="btn btn-primary btn-lg btn-block") }}
           </div>
-      
-          <div class="form-label-group mb-4">
-            <label for="inputConfirmPassword">Confirm Password</label>
-            <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
-          </div>
-        
-          <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign up">
         </form>
+        <div class="signin-item text-center">
+          <small class="my-auto">Already Have An Account? <a href="{{ url_for('signin') }}">Sign In</a></small>
+      </div>
       </div>
     </div>
   </div>

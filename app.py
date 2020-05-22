@@ -1,12 +1,12 @@
 import os
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, render_template, request
-
+from forms import RegistrationForm, LoginForm, CommentForm
+from flask import Flask, render_template, request, flash, url_for, redirect
+from config import Config
 
 blog = Flask(__name__)
-blog.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
-blog.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+blog.config.from_object(Config)
 db = SQLAlchemy(blog)
 
 from models import *
@@ -39,15 +39,18 @@ def index():
 # route for individual posts
 @blog.route('/posts/<int:year>/<int:month>/<string:slug>', methods=['GET', 'POST'])
 def post(year, month, slug):
-    data = Post.query.filter_by(slug=slug).first()
-    return render_template('post.html', info=data)
+    form = CommentForm()
+    if form.validate_on_submit():
+        print(form.username.data, form.comment.data)
+    data = Post.query.first_or_404(slug)
+    return render_template('post.html', info=data, form=form)
 
 
 # route for tags
 @blog.route('/category/<tag>')
 def category(tag):
     # page = request.args.get('page', 1, type=int)
-    data = Tag.query.filter_by(name=tag).first().posts
+    data = Tag.query.first_or_404(tag).posts
     recent, tags = sidebar_data()
     return render_template('tag.html', title=f'Tag - {tag}', data=data, posts=recent, sidedata=tags)
 
@@ -63,13 +66,23 @@ def author(username):
 # login route
 @blog.route('/login', methods=['GET', 'POST'])
 def signin():
-    return render_template("signin.html", title="Signin to askAma")
+    form = LoginForm()
+    if form.validate_on_submit():
+        print(form.username.data, form.password.data)
+    return render_template("signin.html", title="Signin to askAma", form=form)
 
 
 # signup route
-@blog.route('/signup')
+@blog.route('/signup', methods=['GET', 'POST'])
 def signup():
-    return render_template("signup.html", title="Join askAma")
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        # account = User(username=form.username.data, email=form.email.data, password=form.password.data)
+        # db.session.add(account)
+        # db.session.commit()
+        flash(f'flash account created for {form.username.data}', 'success')
+        return redirect(url_for('index'))
+    return render_template("signup.html", title="Join askAma", form=form)
 
 
 if __name__ == "__main__":

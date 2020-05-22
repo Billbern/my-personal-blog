@@ -14,9 +14,10 @@
                     {% endif %}
                 </div>
                 <div class="post__header">
+                    <h1 class="mb-4">{{ info.title }}</h1>
                     <div class="small-content mt-3">
                         <p> 
-                            by <i class="fa fa-user text-info"></i>  
+                            <i class="fa fa-user text-info"></i>  
                             <a class="btn-danger p-1" href="{{url_for('author', username=info.author.username) }}">{{ info.author.username }}</a>
                             {% if info.tags %}
                             under
@@ -25,7 +26,7 @@
                             on {{ info.date }}
                         </p>
                     </div>
-                    <h1 class="mb-4">{{ info.title }}</h1>
+                    
                 </div>
                 <div class="post__content">
                     <p class="px-2">
@@ -37,18 +38,34 @@
             </div>
         </div>
         <div class="comment-form">
-            <form action="" method="post" class="form" role="form">
-                <input class="mt-2" name="url" type="hidden" value="">
-                
+            <form action="" method="POST" class="form" role="form">
+                {{ form.hidden_tag() }}
                 <div class="form-group  required">
-                    <input class="form-control" id="name" name="name" required="" type="text" value="" placeholder="Username">
+                    {% if form.username.errors %}
+                    {{ form.username(class="form-control form-control-md is-invalid", placeholder="Username") }}
+                    <div class="invalid-feedback">
+                        {% for e in form.username.errors %}
+                            <span>{{ e }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.username(class="form-control form-control-md", placeholder="Username") }}
+                    {% endif %}
                 </div>
 
                 <div class="form-group  required">
-                    <textarea class="form-control" id="comment" name="comment" required="" placeholder="Comment"></textarea>  
+                    {% if form.comment.errors %}
+                    {{ form.comment(class="form-control form-control-md is-invalid", placeholder="Comment") }}
+                    <div class="invalid-feedback">
+                        {% for e in form.comment.errors %}
+                            <span>{{ e }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.comment(class="form-control form-control-md", placeholder="Comment") }}
+                    {% endif %}
                 </div>
-
-                <input class="btn btn-success" id="submit" name="submit" type="submit" value="Post a Comment">
+                {{ form.submit(class="btn btn-success") }}
             </form>
         </div>
     </div>

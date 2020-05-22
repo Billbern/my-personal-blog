@@ -1,4 +1,16 @@
 <div class="col-md-8 col-sm-12 col-xs-12">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} text-center alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <div class="row">
         <div class="card-columns">
         {% if request.endpoint == 'index' %}
@@ -13,11 +25,21 @@
                         </h4>
                         <div class="small-content my-2">
                             <p> 
-                                by <i class="fa fa-user text-info"></i>  
+                                <i class="fa fa-user text-info"></i>  
                                 <a class="btn-danger p-1" href="{{url_for('author', username=post.author.username)}}">{{ post.author.username }}</a>
                                 {% if post.tags %}
-                                under
-                                <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0].name ) }}">{{ post.tags[0].name }}</a>
+                                    under
+                                    {% if post.tags | length > 1%}
+                                        {% for num in range(2) %}
+                                            {% if loop.last %}
+                                                <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[num].name ) }}">{{ post.tags[num].name }}</a>
+                                            {% else %}
+                                                <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[num].name ) }}">{{ post.tags[num].name }}</a> |
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0].name ) }}">{{ post.tags[0].name }}</a>
+                                    {% endif %}
                                 {% endif %}
                                 on {{ post.posted_on | format_datetime }}
                             </p>
@@ -31,9 +53,9 @@
                             <div class="col-6">
                                 <a class="a-bold" href="{{url_for('post', year=post.posted_on.year, month=post.posted_on.month, slug=post.slug)}}" class="card-link btn btn-link">continue reading...</a>
                             </div>
-                            <!-- <div class="col-6 text-right">
-                                <i class="fa fa-comment"></i> {{ post.comment }}
-                            </div> -->
+                            <div class="col-6 text-right">
+                                <i class="fa fa-comment"></i> {{ post.comment.content | length }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,11 +72,21 @@
                         </h4>
                         <div class="small-content my-2">
                             <p> 
-                                by <i class="fa fa-user text-info"></i>  
+                                <i class="fa fa-user text-info"></i>  
                                 <a class="btn-danger p-1" href="{{url_for('author', username=post.author.username)}}">{{ post.author.username }}</a>
                                 {% if post.tags %}
-                                under
-                                <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0].name ) }}">{{ post.tags[0].name }}</a>
+                                    under
+                                    {% if post.tags | length > 1%}
+                                        {% for num in range(2) %}
+                                            {% if loop.first %}
+                                                <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[num].name ) }}">{{ post.tags[num].name }}</a> |
+                                            {% else %}
+                                                <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[num].name ) }}">{{ post.tags[num].name }}</a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <a class="btn-info p-1" href="{{ url_for('category', tag= post.tags[0].name ) }}">{{ post.tags[0].name }}</a>
+                                    {% endif %}
                                 {% endif %}
                                 on {{ post.posted_on | format_datetime }}
                             </p>
