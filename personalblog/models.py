@@ -53,7 +53,7 @@ class Post(db.Model):
 
     @staticmethod
     def _slugify(state, value, previous, initiator):
-        text = value.translate(_translate_table)
+        text = value.translate(state._translate_table)
         state.slug = u'-'.join(text.lower().split())
 
     def __repr__(self):
