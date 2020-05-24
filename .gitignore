@@ -2,7 +2,7 @@
 __pycache__/
 copy.json
 data.json
-database.db
+personalblog/database.db
 test.py
-personal_blog/static/img/icon.png
-personal_blog/static/img/icon1.png
+personalblog/static/img/icon.png
+personalblog/static/img/icon1.png

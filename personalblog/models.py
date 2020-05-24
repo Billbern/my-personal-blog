@@ -1,4 +1,4 @@
-from app import db
+from personalblog import db
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -31,24 +31,6 @@ class User(db.Model):
     
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
-
-    
-    # def generate_confirmation_token(self, expiration=3600):
-    #     s = Serializer(blog.config['SECRET_KEY'], expiration)
-    #     return s.dumps({'confirm': self.id}).decode('utf-8')
-    
-    # def confirm(self, token):
-    #     s = Serializer(blog.config['SECRET_KEY'])
-    #     try:
-    #         data = s.loads(token.encode('utf-8'))
-    #     except:
-    #         return False
-        
-    #     if data.get('confirm') != self.id:
-    #         return False
-    #     self.confirmed = True
-    #     db.session.add(self)
-    #     return True
 
 
 

@@ -1,15 +1,11 @@
-import os
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, render_template, request, flash, url_for, redirect
-from config import Config
+from personalblog.models import *
+from flask import render_template, request, flash, url_for, redirect
+from personalblog.forms import RegistrationForm, LoginForm, CommentForm
 
-blog = Flask(__name__)
-blog.config.from_object(Config)
-db = SQLAlchemy(blog)
 
-from models import *
-from forms import RegistrationForm, LoginForm, CommentForm
+from personalblog import blog
+
 
 # template for converting Month to number
 @blog.template_filter("format_datetime")
@@ -87,8 +83,3 @@ def signup():
         return redirect(url_for('index'))
     return render_template("signup.html", title="Join askAma", form=form)
 
-
-if __name__ == "__main__":
-    host = os.environ.get('IP', '127.0.1.1')
-    port = int(os.environ.get('PORT', 8080))
-    blog.run(host=host, port=port, debug=True, use_reloader=True)
