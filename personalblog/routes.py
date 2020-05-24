@@ -2,6 +2,7 @@ from datetime import datetime
 from personalblog.models import *
 from flask import render_template, request, flash, url_for, redirect
 from personalblog.forms import RegistrationForm, LoginForm, CommentForm
+from flask_login import login_user, current_user, logout_user, login_required
 
 
 from personalblog import blog, db
@@ -66,13 +67,20 @@ def author(username):
 def signin():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        print(form.username.data)
-        if user is not None:
-            print(user.split()[0])
-        print(form.username.data, form.password.data)
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and user.verify_password(form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('index'))
+        else:
+            flash('Login Unsuccessful. Check email or password', 'danger')
     return render_template("signin.html", title="Signin to askAma", form=form)
 
+# logout route
+@blog.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 # signup route
 @blog.route('/signup', methods=['GET', 'POST'])
@@ -86,3 +94,7 @@ def signup():
         return redirect(url_for('index'))
     return render_template("signup.html", title="Join askAma", form=form)
 
+@blog.route('/account')
+@login_required
+def account():
+    return render_template('account.html', title='Account')

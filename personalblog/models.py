@@ -1,15 +1,16 @@
-from personalblog import db
 from datetime import datetime
+from flask_login import UserMixin
+from personalblog import db, loginmanager
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 
-non_url_safe = ['"', '\'', '#', '$', '%', '&', '+', ',', '/', ':', ';', '=',
-                    '?', '@', '[', '\\', ']', '^', '`', '{', '|', '}', '~']
 
-translate_table = {ord(char): u'' for char in non_url_safe}
+@loginmanager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True)
@@ -45,9 +46,13 @@ class Post(db.Model):
     tags = db.relationship('Tag', secondary='tagging')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    _non_safe = ['"', '\'', '#', '$', '%', '&', '+', ',', '/', ':', ';', '=',
+                    '?', '@', '[', '\\', ']', '^', '`', '{', '|', '}', '~']
+    _translate_table = {ord(char): u'' for char in _non_safe}
+
     @staticmethod
     def _slugify(state, value, previous, initiator):
-        text = value.translate(translate_table)
+        text = value.translate(_translate_table)
         state.slug = u'-'.join(text.lower().split())
 
     def __repr__(self):
