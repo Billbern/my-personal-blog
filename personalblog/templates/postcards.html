@@ -16,8 +16,8 @@
         {% if request.endpoint == 'index' %}
             {% for post in data.items %}
                 <div class="card mb-4">
-                    {% if post.img %}
-                    <img src="{{ post.img }}" alt="card-img" class="card-img-top img-fluid">
+                    {% if post.featured_img %}
+                    <img src="{{ post.featured_img }}" alt="card-img" class="card-img-top img-fluid">
                     {% endif %}
                     <div class="card-block card-body">
                         <h4 class="card-title">
