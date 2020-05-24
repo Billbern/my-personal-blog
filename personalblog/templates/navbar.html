@@ -20,10 +20,19 @@
                         </div>
                     </div>
                 </form>
+                {% if current_user.is_authenticated %}
+                <div class="col-xs-12">
+                    <a class="btn btn-login btn-lg m-2 mr-1" href="{{ url_for('logout') }}">logout</a>
+                    <a class="btn btn-default my-auto" href="{{ url_for('account') }}">
+                        <i class="fa fa-user-circle-o" style="width: 1.5rem; height: 1.5rem;"></i>
+                    </a>
+                </div>
+                {% else %}
                 <div class="col-xs-12">
                     <a class="btn btn-login btn-lg m-2 mr-2" href="{{ url_for('signin') }}">Sign in</a>
                     <a class="btn btn-signup btn-outline-success btn-lg my-2" href="{{ url_for('signup') }}">Sign up</a>
                 </div>
+                {% endif %}
             </div>
         </div>
     </nav>
