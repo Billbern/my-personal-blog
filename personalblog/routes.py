@@ -4,7 +4,7 @@ from flask import render_template, request, flash, url_for, redirect
 from personalblog.forms import RegistrationForm, LoginForm, CommentForm
 
 
-from personalblog import blog
+from personalblog import blog, db
 
 
 # template for converting Month to number
@@ -44,18 +44,21 @@ def post(year, month, slug):
 # route for tags
 @blog.route('/category/<tag>')
 def category(tag):
-    # page = request.args.get('page', 1, type=int)
-    data = Tag.query.first_or_404(tag).posts
+    data = Tag.query.filter_by(name=tag).first_or_404().posts
     recent, tags = sidebar_data()
-    return render_template('tag.html', title=f'Tag - {tag}', data=data, posts=recent, sidedata=tags)
+    return render_template('tag.html', title=f'Tag - {tag}', data=data, 
+                                        posts=recent, sidedata=tags,
+                                        caption=f'Posts under {tag}')
 
 
 # route for authors
 @blog.route('/author/<username>')
 def author(username):
-    data = User.query.filter_by(username=username).first().post
+    data = User.query.filter_by(username=username).first_or_404().post
     recent , tags = sidebar_data()
-    return render_template('author.html', title=f'Author - {username}', data=data, sidedata=tags, posts=recent)
+    return render_template('author.html', title=f'Author - {username}', 
+                                        data=data, sidedata=tags, 
+                                        posts=recent, caption=f'Posts by {username}')
 
 
 # login route
@@ -79,7 +82,7 @@ def signup():
         account = User(username=form.username.data, email=form.email.data, password=form.password.data)
         db.session.add(account)
         db.session.commit()
-        flash(f'flash account created for {form.username.data}', 'success')
+        flash(f'Account created for {form.username.data}, Proceed to Login', 'success')
         return redirect(url_for('index'))
     return render_template("signup.html", title="Join askAma", form=form)
 

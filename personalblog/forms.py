@@ -12,10 +12,15 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
-    def validate_username(self, field):
-        user = User.query.filter_by(username=field.data).first()
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
         if user:
-            raise ValidationError('Username already in use.')
+            raise ValidationError('username already in use. choose a different one')
+    
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('email already in use. Try Login')
 
 
 class LoginForm(FlaskForm):
