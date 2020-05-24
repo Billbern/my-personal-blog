@@ -40,7 +40,7 @@ class Post(db.Model):
     title = db.Column(db.String(140), nullable=False)
     slug = db.Column(db.String(140), nullable=False)
     posted_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    featured_img = db.Column(db.String, nullable=False, default='/static/img/default-img.png')
+    featured_img = db.Column(db.String, nullable=False, server_default='/static/img/default-img.png')
     summary = db.Column(db.Text, nullable=True)
     content = db.Column(db.Text, nullable=False)
     comment = db.relationship('Comment', backref='post', lazy='dynamic')
