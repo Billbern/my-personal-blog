@@ -17,7 +17,7 @@
     {% endif %}
     <div class="sidebox card-block px-3">
         <h5 class="card-header text-left mb-3">Recent Posts</h5>
-        <div class="list-group pl-2">
+        <div class="list-group">
             {% for post in posts %}
             {% if not loop.first %}
             <hr class="light">
@@ -25,9 +25,9 @@
             {% endif %}
             <div class="media">
                 <!-- <img src="{{ post.img }}" alt="post image" class="img-small align-self-center mr-3">  -->
-                <div class="media-body">
+                <div class="media-body mx-4">
                     <p class="my-0">{{ post.posted_on | format_datetime }}</p>
-                    <p class="my-0"><a href="{{url_for('post', year=post.posted_on.year, month=post.posted_on.month, slug=post.slug)}}">{{ post.title | truncate(50) }}</a></p>
+                    <p class="my-0"><a href="{{url_for('post', year=post.posted_on.year, month=post.posted_on.month, slug=post.slug)}}">{{ post.title | truncate(45) }}</a></p>
                 </div>
             </div>
             {% endfor %}

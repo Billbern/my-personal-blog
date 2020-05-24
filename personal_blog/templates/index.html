@@ -12,7 +12,9 @@
             {% include "sidebar.html" %}
             <div class="page-nav mx-auto mt-5">
                 {% if data.has_prev %}
-                <a href="{{ url_for('index', page=data.prev_num ) }}" class="btn mb-4 ml-4"><i class="fa fa-angle-double-left"></i></a>
+                <a href="{{ url_for('index', page=data.prev_num ) }}" class="btn btn-outline-info mb-4">
+                    <i class="fa fa-angle-double-left my-1"></i>
+                </a>
                 {% endif %}
                 {% for page_num in data.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %}
                     {% if page_num %}
@@ -26,7 +28,9 @@
                     {% endif %}
                 {% endfor %}
                 {% if data.has_next %}
-                <a href="{{ url_for('index', page=data.next_num ) }}" class="btn mb-4 mr-4"><i class="fa fa-angle-double-right"></i></a>
+                <a href="{{ url_for('index', page=data.next_num ) }}" class="btn btn-outline-info mb-4 text-center">
+                    <i class="fa fa-angle-double-right my-1"></i>
+                </a>
                 {% endif %}
             </div>
         </div>

@@ -1,7 +1,6 @@
 import os
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from forms import RegistrationForm, LoginForm, CommentForm
 from flask import Flask, render_template, request, flash, url_for, redirect
 from config import Config
 
@@ -10,7 +9,7 @@ blog.config.from_object(Config)
 db = SQLAlchemy(blog)
 
 from models import *
-
+from forms import RegistrationForm, LoginForm, CommentForm
 
 # template for converting Month to number
 @blog.template_filter("format_datetime")
@@ -68,6 +67,10 @@ def author(username):
 def signin():
     form = LoginForm()
     if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        print(form.username.data)
+        if user is not None:
+            print(user.split()[0])
         print(form.username.data, form.password.data)
     return render_template("signin.html", title="Signin to askAma", form=form)
 
@@ -77,9 +80,9 @@ def signin():
 def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
-        # account = User(username=form.username.data, email=form.email.data, password=form.password.data)
-        # db.session.add(account)
-        # db.session.commit()
+        account = User(username=form.username.data, email=form.email.data, password=form.password.data)
+        db.session.add(account)
+        db.session.commit()
         flash(f'flash account created for {form.username.data}', 'success')
         return redirect(url_for('index'))
     return render_template("signup.html", title="Join askAma", form=form)

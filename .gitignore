@@ -4,5 +4,5 @@ copy.json
 data.json
 database.db
 test.py
-/static/img/icon.png
-/static/img/icon1.png
+personal_blog/static/img/icon.png
+personal_blog/static/img/icon1.png
