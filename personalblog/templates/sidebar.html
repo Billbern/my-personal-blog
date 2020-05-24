@@ -2,7 +2,7 @@
 <div class="sidebar col-md-4">
     {% if request.endpoint == "author" %}
     {% for post in data %}
-    <div class="sidebox text-center px-3">
+    <div class="sidebox text-center">
         <div class="card bg-light">
             <div class="card-body">
                 <img src="{{ post.author.pic }}" alt="post image" class="img-author"> 
@@ -16,17 +16,17 @@
     {% endfor %}
     {% endif %}
     <div class="sidebox card-block">
-        <h5 class="card-header text-left mb-3">Recent Posts</h5>
+        <h5 class="card-header text-left mb-2">Recent Posts</h5>
         <div class="list-group">
             {% for post in posts %}
             {% if not loop.first %}
             <hr class="light">
             {% else %}
             {% endif %}
-            <div class="media">
-                <!-- <img src="{{ post.img }}" alt="post image" class="img-small align-self-center mr-3">  -->
-                <div class="media-body mx-4">
-                    <p class="my-0">{{ post.posted_on | format_datetime }}</p>
+            <small class="text-muted ml-3 mb-2">{{ post.posted_on | format_datetime }}</small>
+            <div class="media ml-3 mb-2">
+                <img src="{{ post.featured_img }}" alt="post image" class="img-small align-self-center mr-3"> 
+                <div class="media-body">
                     <p class="my-0"><a href="{{url_for('post', year=post.posted_on.year, month=post.posted_on.month, slug=post.slug)}}">{{ post.title | truncate(45) }}</a></p>
                 </div>
             </div>

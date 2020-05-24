@@ -137,8 +137,8 @@ hr.light {
 }
 
 .img-author {
-    width: 6.25rem;
-    height: 6.25rem;
+    width: 4.25rem;
+    height: 4.25rem;
     border-radius: 200px;
 }
 
@@ -146,7 +146,7 @@ hr.light {
     width: 3.125rem;
     height: 3.125rem;
     overflow: hidden;
-    border-radius: 200px;
+    /* border-radius: 200px; */
 }
 
 .media-body {
