@@ -132,6 +132,10 @@ hr.light {
     padding: 15px;
 }
 
+.signup-item legend{
+    text-decoration: underline;
+}
+
 .sidebox {
     margin-bottom: 70px;
 }
@@ -158,7 +162,13 @@ hr.light {
     color: #24292e;
 }
 
-.media-body p > a:hover , .card-title > a:hover{
+.media-body small a{
+    color: #6a737d;
+}
+
+.media-body p > a:hover , 
+.card-title > a:hover,
+.media-body small a:hover{
     color: #2f958c;
 }
 
