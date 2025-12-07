@@ -1,7 +1,6 @@
 from datetime import datetime
 from flask_login import UserMixin
 from personalblog import db, loginmanager
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -18,7 +17,7 @@ class User(db.Model, UserMixin):
     about_user = db.Column(db.Text)
     password_hash = db.Column(db.String(128), nullable=False)
     confirmed = db.Column(db.Boolean, default=False)
-    post = db.relationship('Post', backref='author', lazy='dynamic')
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.pic}')"
@@ -66,7 +65,7 @@ db.event.listen(Post.title, 'set', Post._slugify, retval=False)
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    owner = db.Column(db.String(20), unique=True, nullable=False)
+    owner = db.Column(db.String(20), nullable=False)
     posted_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
