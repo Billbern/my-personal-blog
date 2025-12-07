@@ -36,9 +36,13 @@ def index():
 @blog.route('/posts/<int:year>/<int:month>/<string:slug>', methods=['GET', 'POST'])
 def post(year, month, slug):
     form = CommentForm()
+    data = Post.query.filter_by(slug=slug).first_or_404()
     if form.validate_on_submit():
-        print(form.username.data, form.comment.data)
-    data = Post.query.first_or_404(slug)
+        comment = Comment(owner=form.username.data, content=form.comment.data, post=data)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Your comment has been posted!', 'success')
+        return redirect(url_for('post', year=year, month=month, slug=slug))
     return render_template('post.html', info=data, form=form)
 
 
@@ -55,8 +59,8 @@ def category(tag):
 # route for authors
 @blog.route('/author/<username>')
 def author(username):
-    data = User.query.filter_by(username=username).first_or_404().post
-    recent , tags = sidebar_data()
+    data = User.query.filter_by(username=username).first_or_404().posts
+    recent, tags = sidebar_data()
     return render_template('author.html', title=f'Author - {username}', 
                                         data=data, sidedata=tags, 
                                         posts=recent, caption=f'Posts by {username}')
@@ -90,7 +94,8 @@ def signup():
         account = User(username=form.username.data, email=form.email.data, password=form.password.data)
         db.session.add(account)
         db.session.commit()
-        flash(f'Account created for {form.username.data}, Proceed to Login', 'success')
+        flash(f'Account created for {form.username.data}, you are now logged in', 'success')
+        login_user(account)
         return redirect(url_for('index'))
     return render_template("signup.html", title="Join askAma", form=form)
 
